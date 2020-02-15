@@ -1,9 +1,38 @@
 const express = require('express');
-
+const cors = require('cors')
 const app = express();
+const bodyParser = require('body-parser');
 
-app.get('/api/customers', (req, res) => {
+app.use(cors());
+app.use(bodyParser.json());
 
+
+let users = [
+    {
+        id: 1,
+        firstName: 'Georgel',
+        lastName: 'Balanel',
+        role: 'admin',
+        gender: 'M',
+        dateOfBirth: new Date("1995-03-25"),
+        nationality: 'RO',
+        membership: new Date("2007-06-13")
+    }
+];
+
+app.get('/api/users', (req, res) => {
+    res.json(users)
+});
+
+app.post('/api/users', (req, res) => {
+    const newUser = req.body;
+    newUser.id = users.length + 1;
+    newUser.dateOfBirth = new Date(newUser.dateOfBirth);
+    newUser.membership = new Date(newUser.membership);
+    users.push(newUser);
+
+    res.status(201);
+    res.send(users)
 });
 
 const port = 5000;
