@@ -2,24 +2,31 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import User from './components/user/User';
+
+const root = 'http://localhost:5000';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      users: []
+    }
+  }
+
   componentDidMount() {
-    axios.post('http://localhost:5000/api/users', {
-      firstName: 'Fred',
-      lastName: 'Flintstone',
-      role: 'editor',
-      gender: 'M',
-      dateOfBirth: "1995-03-25",
-      nationality: 'DK',
-      memebership: "2019-07-12"
+    let self = this;
+    axios.get(root + '/api/users')
+    .then(function (res) {
+      // handle success
+      self.setState({
+        users: res.data
+      })
     })
-    .then(function (response) {
-      console.log(response);
+    .catch(function (err) {
+      // handle error
+      console.log(err);
     })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   render() {
@@ -29,6 +36,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">React Express Starter</h1>
         </header>
+        <ul className='user-list'>
+          {
+            this.state.users.map(user => <User key={user.id} firstName={user.firstName} lastName={user.lastName} role={user.role} avatar={user.avatar}/>)
+          }
+        </ul>
       </div>
     );
   }

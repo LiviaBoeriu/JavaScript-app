@@ -16,7 +16,20 @@ let users = [
         gender: 'M',
         dateOfBirth: new Date("1995-03-25"),
         nationality: 'RO',
-        membership: new Date("2007-06-13")
+        membership: new Date("2007-06-13"),
+        avatar: 'gril.png'
+    },
+
+    {
+        id: 2,
+        firstName: 'Maricica',
+        lastName: 'Balanel',
+        role: 'editor',
+        gender: 'F',
+        dateOfBirth: new Date("1995-03-25"),
+        nationality: 'RO',
+        membership: new Date("2007-06-13"),
+        avatar: 'pirate.png'
     }
 ];
 
