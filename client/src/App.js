@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import User from './components/user/User';
+import Button from './components/Button/Button';
+import NewUser from './components/NewUser/NewUser';
 
 const root = 'http://localhost:5000';
 
@@ -10,7 +12,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      isNewUser: false
     }
   }
 
@@ -29,6 +32,14 @@ class App extends Component {
     })
   }
 
+  renderUserForm = () => {
+    this.setState({isNewUser: true})
+  }
+
+  renderUserList = () => {
+    this.setState({isNewUser: false})
+  }
+
   render() {
     return (
       <div className="App">
@@ -36,11 +47,20 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">React Express Starter</h1>
         </header>
-        <ul className='user-list'>
-          {
-            this.state.users.map(user => <User key={user.id} firstName={user.firstName} lastName={user.lastName} role={user.role} avatar={user.avatar}/>)
-          }
-        </ul>
+
+        {
+          !this.state.isNewUser ?        
+          <section className="user-section">
+            <ul className='user-list'>
+              {
+                this.state.users.map(user => <User key={user.id} firstName={user.firstName} lastName={user.lastName} role={user.role} avatar={user.avatar}/>)
+              }
+            </ul>
+            <Button name="Add User" align="right" handleClick={this.renderUserForm} />
+          </section> :
+          <NewUser renderUserList={this.renderUserList} />
+        }    
+
       </div>
     );
   }
