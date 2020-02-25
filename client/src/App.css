@@ -44,6 +44,12 @@ body {
   position: relative;
 }
 
+.new-user-form {
+  width: 40%;
+  margin: auto;
+  position: relative;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

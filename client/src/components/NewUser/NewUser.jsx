@@ -1,41 +1,67 @@
 import React from 'react';
-import './NewUser.css';
+import './NewUser.scss';
 import Button from '../Button/Button';
 
 class NewUser extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {firstName: "Alexandru"};
+      //added this to handle the input
+      this.handleInputChange = this.handleInputChange.bind(this);   
     }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+    
+        this.setState({
+          [name.toLowerCase()]: value
+        });
+      }
   
+    postNewUser = () => {
+        let user = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        role: this.state.role,
+        gender: this.state.gender,
+        dateOfBirth: new Date(this.state.date),
+        membership: new Date(""),
+        avatar: 'pirate.png'
+        };
+        // complete user obj
+        this.props.postNewUser(user)
+    }
+
     render() {
         return (
-            <form className="new-user-form">
-                <label htmlFor="firstName">First Name</label>
-                <input type="text" id="fname" name="firstName" />
+            <form className="form-style">
+                <input value={this.state.firstName} type="text" id="fname" name="firstName" placeholder="First Name" onChange={this.handleInputChange}/>
 
-                <label htmlFor="lastName">Last Name</label>
-                <input type="text" id="lname" name="lastName" />
+                <input type="text" id="lname" name="lastName" placeholder="Last Name" onChange={this.handleInputChange}/>
 
-                <label htmlFor="role">Role</label>
-                <select id="role" name="Role">
+                <select id="role" name="Role" onChange={this.handleInputChange}>
                     <option value="admin">Admin</option>
                     <option value="editor">Editor</option>
                     <option value="moderator">Moderator</option>
                 </select>
 
                 <label htmlFor="gender">Gender</label>
-                <input type="radio" id="male" name="gender" value="male" />
-                <input type="radio" id="female" name="gender" value="female" />
+                <input className="radio" type="radio" id="male" name="gender" value="male" onChange={this.handleInputChange}/>
+                <label htmlFor="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female" onChange={this.handleInputChange}/>
+                <label htmlFor="female" className="radio" >Female</label>
 
                 <label htmlFor="dateOfBirth">Date of Birth</label>
-                <input type="date" id="start" name="start-date"
-                    min="1950-01-01" max="2020-12-31" />
+                <input type="date" id="start" name="date"
+                    min="1950-01-01" max="2020-12-31" onChange={this.handleInputChange}/>
 
-                <label htmlFor="nationality">Nationality</label>
-                <input type="text" id="nationality" name="nationality" />
-
-                <Button name="Back" handleClick={this.props.renderUserList}/>
+                <div className="form-buttons">
+                <Button name="Back" align="left" handleClick={this.props.renderUserList}/>
+                
+                <Button name="Submit" align="right" handleClick={this.postNewUser}/> 
+                </div>
             </form>
         );
     }

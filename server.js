@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors')
-const app = express();
 const bodyParser = require('body-parser');
+
+const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,7 +16,6 @@ let users = [
         role: 'admin',
         gender: 'M',
         dateOfBirth: new Date("1995-03-25"),
-        nationality: 'RO',
         membership: new Date("2007-06-13"),
         avatar: 'gril.png'
     },
@@ -27,7 +27,6 @@ let users = [
         role: 'editor',
         gender: 'F',
         dateOfBirth: new Date("1995-03-25"),
-        nationality: 'RO',
         membership: new Date("2007-06-13"),
         avatar: 'pirate.png'
     }
@@ -50,4 +49,4 @@ app.post('/api/users', (req, res) => {
 
 const port = 5000;
 
-app.listen(port, () => `Server running on port ${port}`);
+app.listen(port, () => console.log(`Server running on port ${port}`));

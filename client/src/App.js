@@ -40,6 +40,17 @@ class App extends Component {
     this.setState({isNewUser: false})
   }
 
+  postNewUser(user) {
+    //make call
+    // if success set new list
+    // if error show error
+    axios.post(`/api/users`, user )
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+  }
+
   render() {
     return (
       <div className="App">
@@ -58,7 +69,9 @@ class App extends Component {
             </ul>
             <Button name="Add User" align="right" handleClick={this.renderUserForm} />
           </section> :
-          <NewUser renderUserList={this.renderUserList} />
+          <div className="new-user-form">
+              <NewUser renderUserList={this.renderUserList} postNewUser={this.postNewUser}/> 
+          </div>
         }    
 
       </div>
