@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 class NewUser extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {firstName: "Alexandru"};
+      this.state = "";
       //added this to handle the input
       this.handleInputChange = this.handleInputChange.bind(this);   
     }
