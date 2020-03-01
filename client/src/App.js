@@ -40,15 +40,25 @@ class App extends Component {
     this.setState({isNewUser: false})
   }
 
-  postNewUser(user) {
+  postNewUser = (user) => {
     //make call
     // if success set new list
     // if error show error
-    axios.post(`/api/users`, user )
+    axios.post(`/api/users`, user)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+        this.setState({
+          users: res.data,
+          isNewUser: false
+        });
+      });
+  }
+
+  deleteUser = (id) => {
+    //  axios.delete('/api/users/' + id )
+    axios.delete(`/api/users/${id}`)
+    .then(res => {
+      this.setState({users: res.data})
+    })
   }
 
   render() {
@@ -64,7 +74,7 @@ class App extends Component {
           <section className="user-section">
             <ul className='user-list'>
               {
-                this.state.users.map(user => <User key={user.id} firstName={user.firstName} lastName={user.lastName} role={user.role} avatar={user.avatar}/>)
+                this.state.users.map((user, i) => <User key={i} id={user.id} firstName={user.firstName} lastName={user.lastName} role={user.role} avatar={user.avatar} deleteUser={this.deleteUser}/>)
               }
             </ul>
             <Button name="Add User" align="right" handleClick={this.renderUserForm} />

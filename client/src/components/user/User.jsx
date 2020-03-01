@@ -1,5 +1,6 @@
 import React from 'react';
 import './User.css';
+import Button from '../Button/Button';
 
 function User(props) {
     return (
@@ -9,6 +10,7 @@ function User(props) {
                 <p className='user-name'>{props.firstName + ' ' + props.lastName}</p>
                 <p className='user-role'>{props.role}</p>
             </div>
+            <Button name="Delete" align="right" handleClick={() => props.deleteUser(props.id)}/>
       </li> 
     )
 }

@@ -5,8 +5,9 @@ import Button from '../Button/Button';
 class NewUser extends React.Component {
     constructor(props) {
       super(props);
-      this.state = "";
-      //added this to handle the input
+      this.state = {
+
+      };
       this.handleInputChange = this.handleInputChange.bind(this);   
     }
 
@@ -16,19 +17,19 @@ class NewUser extends React.Component {
         const name = target.name;
     
         this.setState({
-          [name.toLowerCase()]: value
+          [name]: value
         });
       }
   
     postNewUser = () => {
         let user = {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        role: this.state.role,
-        gender: this.state.gender,
-        dateOfBirth: new Date(this.state.date),
-        membership: new Date(""),
-        avatar: 'pirate.png'
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            role: this.state.role,
+            gender: this.state.gender,
+            dateOfBirth: new Date(this.state.date),
+            membership: new Date(""),
+            avatar: 'pirate.png'
         };
         // complete user obj
         this.props.postNewUser(user)
@@ -36,12 +37,12 @@ class NewUser extends React.Component {
 
     render() {
         return (
-            <form className="form-style">
-                <input value={this.state.firstName} type="text" id="fname" name="firstName" placeholder="First Name" onChange={this.handleInputChange}/>
+            <form className="form-style" onSubmit={(e) => e.preventDefault()}>
+                <input type="text" id="fname" name="firstName" placeholder="First Name" onChange={this.handleInputChange}/>
 
                 <input type="text" id="lname" name="lastName" placeholder="Last Name" onChange={this.handleInputChange}/>
 
-                <select id="role" name="Role" onChange={this.handleInputChange}>
+                <select id="role" name="role" onChange={this.handleInputChange}>
                     <option value="admin">Admin</option>
                     <option value="editor">Editor</option>
                     <option value="moderator">Moderator</option>

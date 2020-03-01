@@ -47,6 +47,18 @@ app.post('/api/users', (req, res) => {
     res.send(users)
 });
 
+app.delete('/api/users/:id', (req, res) => {
+    const isUserToDelete = (user) => user.id === +req.params.id;
+    const indexDeleteUser = users.findIndex(isUserToDelete);
+    if (indexDeleteUser !== -1) {
+        users.splice(indexDeleteUser, 1);
+
+        res.status(201);
+        res.send(users)
+    }
+    
+});
+
 const port = 5000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
